@@ -17,7 +17,7 @@ const Home=()=>{
                 <ScreenHeaderBtn iconUrl={icons.menu} dimensions="60%" />
             ),
             headerRight:()=>(
-                <ScreenHeaderBtn iconUrl={images.kemal} dimensions="100%" />
+                <ScreenHeaderBtn iconUrl={images.profile} dimensions="80%" />
             ),
             headerTitle:" "
          }}
