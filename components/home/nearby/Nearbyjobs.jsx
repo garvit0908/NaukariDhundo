@@ -55,12 +55,12 @@ const NearbyJobs = () => {
 
       {isLoading ? (
         <ActivityIndicator />
-      ) : data ? (
+      ) : data.data ? (
         data.data.map((job) => (
           <NearbyJobCard 
-              // job={job}
+              job={job}
               // key={job.job_id}
-              // handleNavigate={handleNavigate}
+              handleNavigate={() => router.push(`/job-details/${job.job_id}`)}
           />
         ))
       ) : (
