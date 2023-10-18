@@ -21,7 +21,7 @@ const NearbyJobs = () => {
     const options = {
       method: 'GET',
       headers: {
-        'X-RapidAPI-Key': '63ae627465mshe17c2c73a60df7dp1e24cbjsn5fb8408a7866',
+        'X-RapidAPI-Key': 'f5f4717b9emshfd49fff2aed8bd5p15b368jsn0042fa9baea7',
         'X-RapidAPI-Host': 'jsearch.p.rapidapi.com',
       },
     };
@@ -59,8 +59,9 @@ const NearbyJobs = () => {
         data.data.map((job) => (
           <NearbyJobCard 
               job={job}
-              // key={job.job_id}
+              key={job.job_id}
               handleNavigate={() => router.push(`/job-details/${job.job_id}`)}
+              // key={job.job_id}?
           />
         ))
       ) : (

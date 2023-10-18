@@ -1,7 +1,7 @@
 import {React,useState,useEffect} from 'react'
 import { Text ,View,SafeAreaView,ScrollView,ActivityIndicator,RefreshControl} from 'react-native'
 
-import {Stack,useRouter,useSearchParams} from 'expo-router'
+import {Stack,useRouter} from 'expo-router'
 import {
   Company,
   JobAbout,
@@ -13,10 +13,32 @@ import {
 
 import { COLORS, icons, SIZES } from "../../constants";
 
-const jobDetails = () => {
+const DisplayTabContent=()=>{
+    switch(activeTab)
+    {
+         case "Qualifications":
+          return(
+            <Specifics
+                title="Qualifications"
+                points={data.data[0].job_highlights.Qualifications
+                }
+            />
+
+          );
+
+          case "About":
+          case "Responsibilities":
+
+
+    }
+}
+
+const JobDetails = () => {
+  
   const router = useRouter();
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const tabs=["About","Qualifications","Responsibilities"]
 
   useEffect(() => {
     fetchAPI();
@@ -27,7 +49,7 @@ const jobDetails = () => {
     const options = {
       method: 'GET',
       headers: {
-        'X-RapidAPI-Key': '63ae627465mshe17c2c73a60df7dp1e24cbjsn5fb8408a7866',
+        'X-RapidAPI-Key': 'f5f4717b9emshfd49fff2aed8bd5p15b368jsn0042fa9baea7',
         'X-RapidAPI-Host': 'jsearch.p.rapidapi.com'
       }
     };
@@ -49,6 +71,9 @@ const jobDetails = () => {
       setIsLoading(false);
     }
   };
+
+  const[activeTab,setActiveTab]=useState(tabs[0])
+
 
 
   return (
@@ -73,10 +98,33 @@ const jobDetails = () => {
         }}
       />
 
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {isLoading ? (<ActivityIndicator/>):
+
+          (<View style={{padding:SIZES.medium,paddingBottom:100}}>
+          <Company 
+              companyLogo={data.data[0].employer_logo}
+              jobTitle={data.data[0].job_title}
+              companyName={data.data[0].employer_name}
+              location={data.data[0].job_country}
+              />
+          <JobTabs 
+             tab={tabs}
+             activeTab={activeTab}
+             setActiveTab={setActiveTab}
+          />
+          </View>)
+        
+      
+      }
+
+
+      </ScrollView>
+
       </SafeAreaView>
       
     </div>
   )
 }
 
-export default jobDetails
+export default JobDetails
