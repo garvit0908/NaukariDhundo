@@ -8,7 +8,7 @@ import { icons ,SIZES } from '../../../constants'
 
 const jobTypes=["Full-time" ,"Contractor","Part-time","Internship","Temporary"]
 
-const Welcome = () => {
+const Welcome = ({searchTerm,setSearchTerm,handleClick}) => {
   const router = useRouter()
   const [activejobType,setActivejobType]=useState(jobTypes[0])
 
@@ -22,12 +22,12 @@ const Welcome = () => {
     <View style={styles.searchContainer}>
       <View style={styles.searchWrapper}>
         <TextInput style={styles.searchInput}
-           value=""
-           onChange={() => {}}
-           placeholder="kya dhund rha hai bhai"
+           value={searchTerm}
+           onChange={(text) => {setSearchTerm(text)}}
+          //  placeholder="kya dhund rha hai bhai"
         />
       </View>
-    <TouchableOpacity style={styles.searchBtn} onPress={()=>{}}>
+    <TouchableOpacity style={styles.searchBtn} onPress={handleClick}>
         <Image source={icons.search} style={styles.searchBtnImage} />
     </TouchableOpacity>
 

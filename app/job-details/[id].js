@@ -30,28 +30,22 @@ const JobDetails = () => {
           return(
             <Specifics
                 title='Qualifications'
-                points={data.data[0].job_highlights.Qualifications
-                }
+                points={data.data[0].job_highlights?.Qualifications ?? ["N/A"]}                
             />
 
           );
 
           case "About":
             return(
-              <JobAbout
-                 info={data.data[0].job_description}              
-              />
+              <JobAbout info={data.data[0].job_description ?? "No data provided"} />
 
             );
           case "Responsibilities":
             return(
               <Specifics
                 title='Responsibilities'
-                points={data.data[0].job_highlights.Responsibilities
-                }
-            />
-              
-
+                points={data.data[0].job_highlights?.Responsibilities ?? ["N/A"]}
+              />
             );
 
 
@@ -107,7 +101,7 @@ const JobDetails = () => {
 
       </ScrollView>
 
-      <JobFooter url={data.data[0]?.job_google_link}/>
+      <JobFooter url={data[0]?.job_google_link ?? 'https://careers.google.com/jobs/results/'} />
 
       </SafeAreaView>
       
