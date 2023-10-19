@@ -5,53 +5,29 @@ import { icons, SIZES } from '../../../constants';
 import PopularJobCard from '../../common/cards/popular/PopularJobCard';
 
 import styles from './popularjobs.style';
+import FetchData from '../../../API/FetchData';
 
 
 const Popularjobs = () => {
   const router = useRouter();
-  const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    fetchAPI();
-  }, []);
- 
-  const fetchAPI = async () => {
-    const url = 'https://jsearch.p.rapidapi.com/search?query=Python%20developer%20in%20Texas%2C%20USA&page=1&num_pages=1';
-    // const baseUrl = 'https://jsearch.p.rapidapi.com/search';
-    // const url = `${baseUrl}?query=${encodeURIComponent(query)}`
-
-    const options = {
-      method: 'GET',
-      headers: {
-        'X-RapidAPI-Key': 'f5f4717b9emshfd49fff2aed8bd5p15b368jsn0042fa9baea7',
-		'X-RapidAPI-Host': 'jsearch.p.rapidapi.com'
-      },
-    };
-
-    try {
-      const response = await fetch(url, options);
-
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-
-      const data = await response.json();
-      // console.log(data);
-      setData(data);
-      setIsLoading(false);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-      setIsLoading(false);
-    }
-  };
+  const{data,isLoading}=FetchData();
 
   const [selectedJob, setSelectedJob] = useState();
 
   const handleCardPress = (item) => {
-    router.push(`/job-details/${item.job_id}`);
-    setSelectedJob(item.job_id);
+    console.log(item);
+    if (item.job_id) {
+      router.push(`/job-details/${item.job_id}`);
+      setSelectedJob(item.job_id);
+    } else {
+      console.warn('job_id is undefined for this item.');
+    }
+    console.log("dabbba dia")
   }
+
+  // data.data.map((job)=>(
+  //   <Text>{job}.job_id</Text>
+  // ))
 
   return (
     <View style={styles.container}>
@@ -66,18 +42,21 @@ const Popularjobs = () => {
         <ActivityIndicator />
       ) : (
         <View style={styles.cardsContainer}>
+
           <FlatList
-            data={data} // Use the fetched data here
-            keyExtractor={(item) => item.id.toString()}
+            data={data.data} // Use the fetched data here
             renderItem={({ item }) => (
+              // {console.log({item})}
               <PopularJobCard
-                item={item}
-                selectedJob={selectedJob}
-                handleCardPress={handleCardPress}
+              item={item}
+              selectedJob={selectedJob}
+              handleCardPress={handleCardPress}
               />
-            )}
-            horizontal
-            contentContainerStyle={{ columnGap: SIZES.medium }}
+              // <Text>heelloo</Text>
+              )}
+              horizontal
+              contentContainerStyle={{ columnGap: SIZES.medium }}
+              // keyExtractor={(item) => item.job_id}
           />
         </View>
       )}

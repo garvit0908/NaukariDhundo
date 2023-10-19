@@ -18,10 +18,9 @@ function TabButton({ name, activeTab, onHandleSearchType }) {
 }
 
 
-const data=["abc","cbd","cvbwdbv"]
-
-const Tabs = ({ tabs, activeTab, setActiveTab }) => {
-  console.log(tabs)
+const tabs=["About","Qualifications","Responsibilities"]
+const Tabs = ({activeTab, setActiveTab }) => {
+  // console.log(tabs)
   return (
     <View style={styles.container}>
       <FlatList
