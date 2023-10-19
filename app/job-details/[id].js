@@ -13,25 +13,7 @@ import {
 
 import { COLORS, icons, SIZES } from "../../constants";
 
-const DisplayTabContent=()=>{
-    switch(activeTab)
-    {
-         case "Qualifications":
-          return(
-            <Specifics
-                title="Qualifications"
-                points={data.data[0].job_highlights.Qualifications
-                }
-            />
 
-          );
-
-          case "About":
-          case "Responsibilities":
-
-
-    }
-}
 
 const JobDetails = () => {
   
@@ -72,7 +54,42 @@ const JobDetails = () => {
     }
   };
 
-  const[activeTab,setActiveTab]=useState(tabs[0])
+  const[activeTab,setActiveTab]=useState(tabs[2])
+
+  const DisplayTabContent=()=>{
+    switch(activeTab)
+    {
+         case "Qualifications":
+          return(
+            <Specifics
+                title='Qualifications'
+                points={data.data[0].job_highlights.Qualifications
+                }
+            />
+
+          );
+
+          case "About":
+            return(
+              <JobAbout
+                 info={data.data[0].job_description}              
+              />
+
+            );
+          case "Responsibilities":
+            return(
+              <Specifics
+                title='Responsibilities'
+                points={data.data[0].job_highlights.Responsibilities
+                }
+            />
+              
+
+            );
+
+
+    }
+}
 
 
 
@@ -113,6 +130,8 @@ const JobDetails = () => {
              activeTab={activeTab}
              setActiveTab={setActiveTab}
           />
+
+          {DisplayTabContent()}
           </View>)
         
       
